@@ -1,5 +1,6 @@
 package com.avborik28.mydiceapp;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +10,9 @@ import android.widget.ImageView;
 import java.util.Random;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
         Button btnRoll = findViewById(R.id.btnRoll);
 
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.dice_sound);
+
         btnRoll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,6 +54,18 @@ public class MainActivity extends AppCompatActivity {
                 myRandomNumber = rndObject.nextInt(6);
 
                 diceImage2.setImageResource(diceImages[myRandomNumber]);
+
+                YoYo.with(Techniques.Shake)
+                        .duration(400)
+                        .repeat(0)
+                        .playOn(diceImage1);
+
+                YoYo.with(Techniques.Shake)
+                        .duration(400)
+                        .repeat(0)
+                        .playOn(diceImage2);
+
+                mp.start();
             }
         });
     }
